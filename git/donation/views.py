@@ -6,6 +6,11 @@ from django.urls import reverse
 from django.shortcuts import redirect
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+
+
+
 # Create your views here.
 
 class LandingPage(View):
@@ -21,7 +26,9 @@ class LandingPage(View):
             organizacje.append(i.institution)
         return render(request, 'index.html',{'worki':worki, 'organizacje':len(set(organizacje)),'fundacje': fundacje,'op':op,'zl':zl})
 
-class AddDonation(View):
+
+
+class AddDonation(LoginRequiredMixin, View):
     def get(self, request):
         return render(request, 'form.html')
 
