@@ -71,4 +71,12 @@ class Register(View):
 
 class Profile(LoginRequiredMixin, View):
     def get(self,request):
-        return render(request,'user.html')
+        user = request.user
+        donations = Donation.objects.filter(user=user)
+        return render(request,'user.html',{'donations':donations})
+
+
+
+
+
+

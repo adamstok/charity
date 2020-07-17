@@ -15,7 +15,23 @@
         <div class="form-group">
 	<h3> E-mail:</h3> <input type="email" name="email" placeholder="{{ user.email }}" disabled />
         </div>
-     
+    
+	{% if donations %}
+	<h2>Lista przekazanych darów</h2>
+	{% for donation in donations %}	
+        <div class="form-group">
+	<h3> Ilość worków:</h3> <input type="text" placeholder="{{ donation.quantity }}" disabled />
+       	<h3> Przekazane do:</h3> <input  type="text" placeholder="{{ donation.institution }}" disabled />
+       	<h3> Kategorie:</h3> <input  type="text" placeholder="{{ donation.category }}" disabled />
+       	<h3> Data odbioru:</h3> <input type="text" placeholder="{{ donation.pick_up_date }}" disabled />
+	</div>
+	<h2></h2>
+
+	
+
+	{% endfor %}
+	{% endif %}
+
       </form>
     </section>
 
