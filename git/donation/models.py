@@ -13,7 +13,8 @@ type_choices = (
 
 class Category(models.Model):
     name = models.CharField(max_length=150)
-
+    def __str__(self):
+        return f'{self.name}'
 
 class Institution(models.Model):
     name = models.CharField(max_length=255)
@@ -23,8 +24,10 @@ class Institution(models.Model):
     def category(self):
         outp = ''
         for x in self.categories.all():
-            outp += f' {x.name} '
+            outp += f' - {x.name} - '
         return outp
+    def __str__(self):
+        return f'{self.type_choice} {self.name} - {self.description} - Categories: {self.category()}'
 
 class Donation(models.Model):
     quantity = models.IntegerField()
@@ -38,5 +41,11 @@ class Donation(models.Model):
     pick_up_time = models.TimeField()
     pick_up_comment = models.TextField()
     user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
-
+    def category(self):
+        outp = ''
+        for x in self.categories.all():
+            outp += f' - {x.name} - '
+        return outp
+    def __str__(self):
+        return f'User: {self.user.username} - {self.quantity} {self.category()} to {self.institution}'
 
