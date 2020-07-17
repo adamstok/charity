@@ -13,10 +13,18 @@
   <body>
     <header class="header--main-page">
       <nav class="container container--70">
-        <ul class="nav--actions">
+        
+	{% if user.is_authenticated %}
+	<ul class="nav--actions">
+	  <li><a href="/logout" class="btn btn--small btn--without-border">Wyloguj</a></li>
+	</ul>
+	{% else %} 
+	<ul class="nav--actions">
 	  <li><a href="/login#user_login" class="btn btn--small btn--without-border">Zaloguj</a></li>
 	  <li><a href="/register#register_account" class="btn btn--small btn--highlighted">Załóż konto</a></li>
         </ul>
+
+	{% endif %}
 
         <ul>
 	  <li><a href="{% url 'home' %}" class="btn btn--without-border active">Start</a></li>

@@ -4,7 +4,8 @@ from donation.models import Donation, Institution
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.shortcuts import redirect
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponse
 # Create your views here.
 
 class LandingPage(View):
@@ -32,6 +33,15 @@ class Login(View):
         email = request.POST.get('email','')
         password = request.POST.get('password','')
         user =   authenticate(username=email,password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('/')
+        else:
+            return HttpResponse('Error')
+
+class Logout(View):
+    def get(self,request):
+        logout(request)
         return redirect('/')
 
 
@@ -46,7 +56,8 @@ class Register(View):
         email = request.POST.get('email','')
         password = request.POST.get('password','')
         password2 = request.POST.get('password2','')
-        user1 = User.objects.create(first_name=name,last_name=surname,email=email,username=email)
+        user1 = User.objects.create(email=email,username=email)
         if password == password2:
             user1.set_password(password)
+            user1.save()
             return redirect('/login#user_login')        
