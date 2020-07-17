@@ -37,7 +37,7 @@ class Login(View):
             login(request, user)
             return redirect('/')
         else:
-            return HttpResponse('Error')
+            return redirect('/register#register_account')
 
 class Logout(View):
     def get(self,request):
