@@ -4,6 +4,7 @@ from donation.models import Donation, Institution
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.shortcuts import redirect
+from django.contrib.auth import authenticate
 # Create your views here.
 
 class LandingPage(View):
@@ -26,6 +27,14 @@ class AddDonation(View):
 class Login(View):
     def get(self,request):
         return render(request, 'login.html')
+
+    def post(self,request):
+        email = request.POST.get('email','')
+        password = request.POST.get('password','')
+        user =   authenticate(username=email,password=password)
+        return redirect('/')
+
+
 
 class Register(View):
     def get(self,request):
