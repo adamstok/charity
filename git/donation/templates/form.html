@@ -88,20 +88,22 @@
           <div data-step="1" class="active">
             <h3>Zaznacz co chcesz oddać:</h3>
 
+		{% for kategoria in kategorie %}
+
             <div class="form-group form-group--checkbox">
               <label>
                 <input
                   type="checkbox"
                   name="categories"
-                  value="clothes-to-use"
+		  value="{{ kategoria.pk }}"
                 />
                 <span class="checkbox"></span>
-                <span class="description"
-                  >ubrania, które nadają się do ponownego użycia</span
-                >
+                <span class="description">{{ kategoria }}</span>
               </label>
             </div>
 
+		{% endfor %}
+<!--
             <div class="form-group form-group--checkbox">
               <label>
                 <input
@@ -137,6 +139,7 @@
                 <span class="description">inne</span>
               </label>
             </div>
+-->
 
             <div class="form-group form-group--buttons">
               <button type="button" class="btn next-step">Dalej</button>

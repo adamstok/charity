@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views import View
-from donation.models import Donation, Institution
+from donation.models import Donation, Institution, Category
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.shortcuts import redirect
@@ -30,7 +30,8 @@ class LandingPage(View):
 
 class AddDonation(LoginRequiredMixin, View):
     def get(self, request):
-        return render(request, 'form.html')
+        kategorie = Category.objects.all() 
+        return render(request, 'form.html',{'kategorie':kategorie})
 
 class Login(View):
     def get(self,request):
