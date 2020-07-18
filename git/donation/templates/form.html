@@ -84,6 +84,7 @@
         <div class="form--steps-counter">Krok <span>1</span>/5</div>
 
         <form action="form-confirmation.html" method="post">
+		{% csrf_token  %}
           <!-- STEP 1: class .active is switching steps -->
           <div data-step="1" class="active">
             <h3>Zaznacz co chcesz oddać:</h3>
@@ -95,8 +96,8 @@
                 <input
                   type="checkbox"
                   name="categories"
-		  value="{{ kategoria.pk }}"
-                />
+		  id = "categories"
+		  value="{{ kategoria.pk }}" />
                 <span class="checkbox"></span>
                 <span class="description">{{ kategoria }}</span>
               </label>
