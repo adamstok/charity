@@ -186,6 +186,7 @@ document.addEventListener("DOMContentLoaded", function() {
     init() {
       this.events();
       this.updateForm();
+      //console.log( this.$selectedValues );
     }
 
     /**
@@ -212,6 +213,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
       // Form submit
       this.$form.querySelector("form").addEventListener("submit", e => this.submit(e));
+
     }
 
     /**
@@ -222,7 +224,9 @@ document.addEventListener("DOMContentLoaded", function() {
       this.$step.innerText = this.currentStep;
 
       // TODO: Validation
-
+  //   console.log(this.$form.querySelector('input[name="categories"]:checked'));
+//     console.log(this.$form.querySelector('input[name="categories"]:checked').val());
+//	console.log( this.$selectedValues );
 
       this.slides.forEach(slide => {
         slide.classList.remove("active");
@@ -236,8 +240,16 @@ document.addEventListener("DOMContentLoaded", function() {
       this.$step.parentElement.hidden = this.currentStep >= 6;
     
       // TODO: get data from inputs and show them in summary
-	console.log(this.$form.querySelector("form"));
+//	console.log(this.$form.querySelector("form"));
+//	console.log(this.$form.querySelectorAll('input[name="categories"]:checked'));
+	var selectedVal = this.$form.querySelectorAll('input[name="categories"]:checked');
+	    console.log( this.$form.querySelectorAll('input[name="categories"]:checked')[0].value);
+	selectedVal.forEach((e)=>{
+		console.log(value);
+	});
+
     }
+
 
     /**
      * Submit form
@@ -255,3 +267,5 @@ document.addEventListener("DOMContentLoaded", function() {
     new FormSteps(form);
   }
 });
+
+
