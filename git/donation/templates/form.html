@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> 
     <title>Document</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'donation/css/style.css' %}" />
@@ -13,7 +14,7 @@
       <nav class="container container--70">
         <ul class="nav--actions">
           <li class="logged-user">
-	    Witaj {{ user.username }}
+	    Witaj {{ user.first_name }}
             <ul class="dropdown">
               <li><a href="/profile#user_profile">Profil</a></li>
               <li><a href="#">Ustawienia</a></li>
@@ -84,24 +85,27 @@
         <div class="form--steps-counter">Krok <span>1</span>/5</div>
 
         <form action="form-confirmation.html" method="post">
+		{% csrf_token  %}
           <!-- STEP 1: class .active is switching steps -->
           <div data-step="1" class="active">
             <h3>Zaznacz co chcesz oddać:</h3>
+
+		{% for kategoria in kategorie %}
 
             <div class="form-group form-group--checkbox">
               <label>
                 <input
                   type="checkbox"
                   name="categories"
-                  value="clothes-to-use"
-                />
+		  id = "categories"
+		  value="{{ kategoria.pk }}" />
                 <span class="checkbox"></span>
-                <span class="description"
-                  >ubrania, które nadają się do ponownego użycia</span
-                >
+                <span class="description">{{ kategoria }}</span>
               </label>
             </div>
 
+		{% endfor %}
+<!--
             <div class="form-group form-group--checkbox">
               <label>
                 <input
@@ -137,6 +141,7 @@
                 <span class="description">inne</span>
               </label>
             </div>
+-->
 
             <div class="form-group form-group--buttons">
               <button type="button" class="btn next-step">Dalej</button>
@@ -166,6 +171,28 @@
           <div data-step="3">
             <h3>Wybierz organizacje, której chcesz pomóc:</h3>
 
+
+	{% for organizacja in organizacje  %}
+
+
+            <div class="form-group form-group--checkbox">
+              <label>
+		<input type="radio" name="organization" value="{{ organizacja.pk }}" cat="{{ organizacja.category }}" />
+		<span class="checkbox radio"></span>
+                <span class="description">
+		<div class="title" name="organizationname">{{ organizacja.name }}</div>
+                  <div class="subtitle">
+                   {{ organizacja.description }}
+                  </div>
+                </span>
+              </label>
+            </div>
+
+
+
+	{% endfor %}
+
+<!--
             <div class="form-group form-group--checkbox">
               <label>
                 <input type="radio" name="organization" value="old" />
@@ -193,7 +220,7 @@
                 </span>
               </label>
             </div>
-
+-->
             <div class="form-group form-group--buttons">
               <button type="button" class="btn prev-step">Wstecz</button>
               <button type="button" class="btn next-step">Dalej</button>
@@ -262,15 +289,15 @@
                 <ul>
                   <li>
                     <span class="icon icon-bag"></span>
-                    <span class="summary--text"
-                      >4 worki ubrań w dobrym stanie dla dzieci</span
+                    <span class="summary--text" name="worki"
+                      ></span
                     >
                   </li>
 
                   <li>
                     <span class="icon icon-hand"></span>
-                    <span class="summary--text"
-                      >Dla fundacji "Mam marzenie" w Warszawie</span
+                    <span class="summary--text" name="dlakogo"
+                      ></span
                     >
                   </li>
                 </ul>
@@ -280,19 +307,19 @@
                 <div class="form-section--column">
                   <h4>Adres odbioru:</h4>
                   <ul>
-                    <li>Prosta 51</li>
-                    <li>Warszawa</li>
-                    <li>99-098</li>
-                    <li>123 456 789</li>
+                    <li name="ulica"></li>
+                    <li name="miasto"></li>
+                    <li name="kodpocztowy"></li>
+                    <li name="telefon"></li>
                   </ul>
                 </div>
 
                 <div class="form-section--column">
                   <h4>Termin odbioru:</h4>
                   <ul>
-                    <li>13/12/2018</li>
-                    <li>15:40</li>
-                    <li>Brak uwag</li>
+                    <li name="data"></li>
+                    <li name="godzina"></li>
+                    <li name="uwagi"></li>
                   </ul>
                 </div>
               </div>

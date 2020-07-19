@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views import View
-from donation.models import Donation, Institution
+from donation.models import Donation, Institution, Category
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.shortcuts import redirect
@@ -8,8 +8,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-
-
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 # Create your views here.
 
@@ -30,7 +30,16 @@ class LandingPage(View):
 
 class AddDonation(LoginRequiredMixin, View):
     def get(self, request):
-        return render(request, 'form.html')
+        kategorie = Category.objects.all() 
+        organizacje = Institution.objects.all()
+        return render(request, 'form.html',{'kategorie':kategorie,'organizacje':organizacje})
+    
+    def post(self,request):
+        dane = request.POST.get('donation','')
+        print(dane)
+        #return HttpResponse(json.dumps(response), content_itype='application/json')
+        return render(request,'form-confirmation.html',{'dane':dane})
+        #return redirect('/register#register_account')
 
 class Login(View):
     def get(self,request):
@@ -76,7 +85,8 @@ class Profile(LoginRequiredMixin, View):
         return render(request,'user.html',{'donations':donations})
 
 
-
-
+class Donated(LoginRequiredMixin, View):
+    def get(self,request):
+        return render(request,'form-confirmation.html')
 
 

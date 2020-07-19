@@ -186,6 +186,7 @@ document.addEventListener("DOMContentLoaded", function() {
     init() {
       this.events();
       this.updateForm();
+      //console.log( this.$selectedValues );
     }
 
     /**
@@ -212,6 +213,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
       // Form submit
       this.$form.querySelector("form").addEventListener("submit", e => this.submit(e));
+
     }
 
     /**
@@ -222,6 +224,9 @@ document.addEventListener("DOMContentLoaded", function() {
       this.$step.innerText = this.currentStep;
 
       // TODO: Validation
+  //   console.log(this.$form.querySelector('input[name="categories"]:checked'));
+//     console.log(this.$form.querySelector('input[name="categories"]:checked').val());
+//	console.log( this.$selectedValues );
 
       this.slides.forEach(slide => {
         slide.classList.remove("active");
@@ -233,9 +238,75 @@ document.addEventListener("DOMContentLoaded", function() {
 
       this.$stepInstructions[0].parentElement.parentElement.hidden = this.currentStep >= 6;
       this.$step.parentElement.hidden = this.currentStep >= 6;
-
+    
       // TODO: get data from inputs and show them in summary
+//	console.log(this.$form.querySelector("form"));
+//	console.log(this.$form.querySelectorAll('input[name="categories"]:checked'));
+	var selectedVal = this.$form.querySelectorAll('input[name="categories"]:checked');
+	var selectedValues = []
+	selectedVal.forEach(e => {
+	//	console.log(e.value);
+		selectedValues.push(e.value);
+	});
+	//console.log(selectedValues);
+
+	var showInstitutions = this.$form.querySelectorAll('input[type="radio"]:checked');
+	var institutions = []
+	var hiddenInput = this.$form.querySelectorAll('input[name="hidden"]');
+	var bags = this.$form.querySelector('input[name="bags"]').value;
+	var address =  this.$form.querySelector('input[name="address"]').value;
+	var city =  this.$form.querySelector('input[name="city"]').value;
+	var postcode = this.$form.querySelector('input[name="postcode"]').value;
+	var phone= this.$form.querySelector('input[name="phone"]').value;
+	var data= this.$form.querySelector('input[name="data"]').value;
+	var time= this.$form.querySelector('input[name="time"]').value;
+	var moreinfo= this.$form.querySelector('textarea[name="more_info"]').value;
+
+	showInstitutions.forEach(e => {
+		//console.log(e);
+	});
+	showInstitutions.forEach(e => {
+		institutions.push(e.value);
+
+	});
+	console.log(selectedValues);
+	console.log(bags);
+	console.log(institutions);
+        console.log(address + city + postcode + phone);
+	console.log(data + time + moreinfo);
+	var formedObject = new Object();
+	    formedObject.categories = selectedValues;
+	    formedObject.bags = bags;
+	    formedObject.institution = institutions;
+	    formedObject.address = address;
+	    formedObject.city = city;
+	    formedObject.postcode = postcode;
+	    formedObject.phone = phone;
+	    formedObject.date = data;
+	    formedObject.time = time;
+	    formedObject.info = moreinfo;
+	var stringFormedObject = JSON.stringify(formedObject);
+	this.stringFormedObj = stringFormedObject;
+	console.log(formedObject);
+	console.log(stringFormedObject);
+	this.$form.querySelector('span[name="worki"]').innerText = bags + ' worków';
+	var organizationName = this.$form.querySelector('div[name="organizationname"]').innerText;
+	this.$form.querySelector('span[name="dlakogo"]').innerText = 'Dla '+ organizationName;
+	this.$form.querySelector('li[name="ulica"]').innerText = address;
+	this.$form.querySelector('li[name="miasto"]').innerText = city;
+	this.$form.querySelector('li[name="kodpocztowy"]').innerText = postcode;
+	this.$form.querySelector('li[name="telefon"]').innerText = phone;
+	this.$form.querySelector('li[name="data"]').innerText = data;
+	this.$form.querySelector('li[name="godzina"]').innerText = time;
+	this.$form.querySelector('li[name="uwagi"]').innerText = moreinfo;
+	var el = document.getElementsByName("csrfmiddlewaretoken");
+        var csrf_value = el[0].getAttribute("value");
+
+
+    
+    
     }
+
 
     /**
      * Submit form
@@ -244,12 +315,32 @@ document.addEventListener("DOMContentLoaded", function() {
      */
     submit(e) {
       e.preventDefault();
+      var el = document.getElementsByName("csrfmiddlewaretoken");
+      var csrf_value = el[0].getAttribute("value");
+      console.log('csrf: '+csrf_value);
       this.currentStep++;
       this.updateForm();
+
+
+	  $.ajax({
+		    type: "POST",
+		    url: "/donate/",
+		    data: {'donation': this.stringFormedObj, csrfmiddlewaretoken: csrf_value},
+		    success: function(result){
+		    	console.log('ok');
+			window.location.href = "/donated/";
+		    }
+		
+	    
+	    });
     }
+
+
   }
   const form = document.querySelector(".form--steps");
   if (form !== null) {
     new FormSteps(form);
   }
 });
+
+
