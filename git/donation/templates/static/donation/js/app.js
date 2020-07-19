@@ -243,11 +243,15 @@ document.addEventListener("DOMContentLoaded", function() {
 //	console.log(this.$form.querySelector("form"));
 //	console.log(this.$form.querySelectorAll('input[name="categories"]:checked'));
 	var selectedVal = this.$form.querySelectorAll('input[name="categories"]:checked');
-	    console.log( this.$form.querySelectorAll('input[name="categories"]:checked')[0].value);
-	selectedVal.forEach((e)=>{
-		console.log(value);
+	    //console.log( this.$form.querySelectorAll('input[name="categories"]:checked')[0].value);
+	
+	   // console.log(selectedVal.length);
+	var selectedValues = []
+	selectedVal.forEach(e => {
+	//	console.log(e.value);
+		selectedValues.push(e.value);
 	});
-
+	console.log(selectedValues);
     }
 
 
