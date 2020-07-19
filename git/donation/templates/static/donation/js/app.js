@@ -309,6 +309,20 @@ document.addEventListener("DOMContentLoaded", function() {
      */
     submit(e) {
       e.preventDefault();
+      var el = document.getElementsByName("csrfmiddlewaretoken");
+      var csrf_value = el[0].getAttribute("value");
+      console.log('csrf: '+csrf_value);
+      $.ajax({
+	      type: "POST",
+	      url: "/donate/",
+	      data: { "_token": csrf_value}
+      	    })
+	    .fail(function(message){
+	    	console.log('error');
+	    })
+	    .done(function(data){
+		    console.log('ok');
+	    });
       this.currentStep++;
       this.updateForm();
     }

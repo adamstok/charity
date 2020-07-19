@@ -33,6 +33,8 @@ class AddDonation(LoginRequiredMixin, View):
         kategorie = Category.objects.all() 
         organizacje = Institution.objects.all()
         return render(request, 'form.html',{'kategorie':kategorie,'organizacje':organizacje})
+    def post(self,request):
+        return render(request,'form-confirmation.html',{'dane':dane})
 
 class Login(View):
     def get(self,request):
