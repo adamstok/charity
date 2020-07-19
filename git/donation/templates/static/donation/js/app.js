@@ -288,6 +288,17 @@ document.addEventListener("DOMContentLoaded", function() {
 	var stringFormedObject = JSON.stringify(formedObject);
 	console.log(formedObject);
 	console.log(stringFormedObject);
+	this.$form.querySelector('span[name="worki"]').innerText = bags + ' worków';
+	var organizationName = this.$form.querySelector('div[name="organizationname"]').innerText;
+	this.$form.querySelector('span[name="dlakogo"]').innerText = 'Dla '+ organizationName;
+	this.$form.querySelector('li[name="ulica"]').innerText = address;
+	this.$form.querySelector('li[name="miasto"]').innerText = city;
+	this.$form.querySelector('li[name="kodpocztowy"]').innerText = postcode;
+	this.$form.querySelector('li[name="telefon"]').innerText = phone;
+	this.$form.querySelector('li[name="data"]').innerText = data;
+	this.$form.querySelector('li[name="godzina"]').innerText = time;
+	this.$form.querySelector('li[name="uwagi"]').innerText = moreinfo;
+
     }
 
 
