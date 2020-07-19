@@ -8,7 +8,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-
+from django.views.decorators.csrf import csrf_exempt
 
 
 # Create your views here.
@@ -33,7 +33,9 @@ class AddDonation(LoginRequiredMixin, View):
         kategorie = Category.objects.all() 
         organizacje = Institution.objects.all()
         return render(request, 'form.html',{'kategorie':kategorie,'organizacje':organizacje})
+    
     def post(self,request):
+        dane = 'ok'
         return render(request,'form-confirmation.html',{'dane':dane})
 
 class Login(View):
@@ -80,7 +82,8 @@ class Profile(LoginRequiredMixin, View):
         return render(request,'user.html',{'donations':donations})
 
 
-
-
+class Donated(LoginRequiredMixin, View):
+    def get(self,request):
+        return render(request,'form-confirmation.html')
 
 

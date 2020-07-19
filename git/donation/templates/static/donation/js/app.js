@@ -298,7 +298,12 @@ document.addEventListener("DOMContentLoaded", function() {
 	this.$form.querySelector('li[name="data"]').innerText = data;
 	this.$form.querySelector('li[name="godzina"]').innerText = time;
 	this.$form.querySelector('li[name="uwagi"]').innerText = moreinfo;
+	var el = document.getElementsByName("csrfmiddlewaretoken");
+        var csrf_value = el[0].getAttribute("value");
 
+
+    
+    
     }
 
 
@@ -312,20 +317,23 @@ document.addEventListener("DOMContentLoaded", function() {
       var el = document.getElementsByName("csrfmiddlewaretoken");
       var csrf_value = el[0].getAttribute("value");
       console.log('csrf: '+csrf_value);
-      $.ajax({
-	      type: "POST",
-	      url: "/donate/",
-	      data: { "_token": csrf_value}
-      	    })
-	    .fail(function(message){
-	    	console.log('error');
-	    })
-	    .done(function(data){
-		    console.log('ok');
-	    });
       this.currentStep++;
       this.updateForm();
+
+
+	  $.ajax({
+		    type: "POST",
+		    url: "/donate/",
+		    data: {'csrf':csrf_value, csrfmiddlewaretoken: csrf_value},
+		    success: function(result){
+		    	console.log('ok');
+			window.location.href = "/donated/";
+		    }
+	    
+	    });
     }
+
+
   }
   const form = document.querySelector(".form--steps");
   if (form !== null) {
