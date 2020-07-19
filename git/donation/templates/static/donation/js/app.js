@@ -248,14 +248,46 @@ document.addEventListener("DOMContentLoaded", function() {
 	//	console.log(e.value);
 		selectedValues.push(e.value);
 	});
-	console.log(selectedValues);
+	//console.log(selectedValues);
 
-	var showInstitutions = this.$form.querySelectorAll('input[type="radio"]');
+	var showInstitutions = this.$form.querySelectorAll('input[type="radio"]:checked');
+	var institutions = []
+	var hiddenInput = this.$form.querySelectorAll('input[name="hidden"]');
+	var bags = this.$form.querySelector('input[name="bags"]').value;
+	var address =  this.$form.querySelector('input[name="address"]').value;
+	var city =  this.$form.querySelector('input[name="city"]').value;
+	var postcode = this.$form.querySelector('input[name="postcode"]').value;
+	var phone= this.$form.querySelector('input[name="phone"]').value;
+	var data= this.$form.querySelector('input[name="data"]').value;
+	var time= this.$form.querySelector('input[name="time"]').value;
+	var moreinfo= this.$form.querySelector('textarea[name="more_info"]').value;
+
 	showInstitutions.forEach(e => {
-		console.log(e);	
+		//console.log(e);
 	});
-	 
+	showInstitutions.forEach(e => {
+		institutions.push(e.value);
 
+	});
+	console.log(selectedValues);
+	console.log(bags);
+	console.log(institutions);
+        console.log(address + city + postcode + phone);
+	console.log(data + time + moreinfo);
+	var formedObject = new Object();
+	    formedObject.categories = selectedValues;
+	    formedObject.bags = bags;
+	    formedObject.institution = institutions;
+	    formedObject.address = address;
+	    formedObject.city = city;
+	    formedObject.postcode = postcode;
+	    formedObject.phone = phone;
+	    formedObject.date = data;
+	    formedObject.time = time;
+	    formedObject.info = moreinfo;
+	var stringFormedObject = JSON.stringify(formedObject);
+	console.log(formedObject);
+	console.log(stringFormedObject);
     }
 
 
