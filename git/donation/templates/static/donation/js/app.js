@@ -286,6 +286,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	    formedObject.time = time;
 	    formedObject.info = moreinfo;
 	var stringFormedObject = JSON.stringify(formedObject);
+	this.stringFormedObj = stringFormedObject;
 	console.log(formedObject);
 	console.log(stringFormedObject);
 	this.$form.querySelector('span[name="worki"]').innerText = bags + ' worków';
@@ -324,11 +325,12 @@ document.addEventListener("DOMContentLoaded", function() {
 	  $.ajax({
 		    type: "POST",
 		    url: "/donate/",
-		    data: {'csrf':csrf_value, csrfmiddlewaretoken: csrf_value},
+		    data: {'donation': this.stringFormedObj, csrfmiddlewaretoken: csrf_value},
 		    success: function(result){
 		    	console.log('ok');
 			window.location.href = "/donated/";
 		    }
+		
 	    
 	    });
     }

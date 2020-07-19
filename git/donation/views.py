@@ -9,7 +9,7 @@ from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
-
+import json
 
 # Create your views here.
 
@@ -35,8 +35,11 @@ class AddDonation(LoginRequiredMixin, View):
         return render(request, 'form.html',{'kategorie':kategorie,'organizacje':organizacje})
     
     def post(self,request):
-        dane = 'ok'
+        dane = request.POST.get('donation','')
+        print(dane)
+        #return HttpResponse(json.dumps(response), content_itype='application/json')
         return render(request,'form-confirmation.html',{'dane':dane})
+        #return redirect('/register#register_account')
 
 class Login(View):
     def get(self,request):
