@@ -10,8 +10,15 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 import json
-
+from datetime import datetime
 # Create your views here.
+
+def get_int(l):
+    li = []
+    for i in l:
+        li.append(int(i))
+    return li
+
 
 class LandingPage(View):
     def get(self,request):
@@ -36,7 +43,27 @@ class AddDonation(LoginRequiredMixin, View):
     
     def post(self,request):
         dane = request.POST.get('donation','')
-        print(dane)
+        datas = json.loads(dane)
+
+        kategorie = get_int(datas["categories"])
+        worki = int(datas["bags"])
+        instytu = get_int(datas["institution"])
+        adres = datas["address"]
+        miasto = datas["city"]
+        kodpocztowy = int(datas["postcode"])
+        numertel = int(datas["phone"])
+        timestring = datas["time"]
+        datastring = datas["date"]+' '+timestring
+        data = datetime.strptime(datastring, '%Y-%m-%d %H:%M')
+        info = datas["info"]
+        user = request.user
+        categories = Category.objects.filter(pk__in=kategorie)
+        instytucja = Institution.objects.get(pk__in=instytu)
+        donat = Donation.objects.create(quantity=worki,institution=instytucja,
+                address=adres,phone_number=numertel,city=miasto,zip_code=kodpocztowy,pick_up_date=data.date(),
+                pick_up_time=data.time(),pick_up_comment=info, user=user)
+        donat.categories.set(categories)
+        donat.save()
         #return HttpResponse(json.dumps(response), content_itype='application/json')
         return render(request,'form-confirmation.html',{'dane':dane})
         #return redirect('/register#register_account')
