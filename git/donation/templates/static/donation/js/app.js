@@ -275,6 +275,9 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log(address + city + postcode + phone);
 	console.log(data + time + moreinfo);
 	var formedObject = new Object();
+	    selectedValues.forEach(e => {
+	    	e = parseInt(e);
+	    });
 	    formedObject.categories = selectedValues;
 	    formedObject.bags = bags;
 	    formedObject.institution = institutions;
