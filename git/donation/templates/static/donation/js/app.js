@@ -289,6 +289,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	this.stringFormedObj = stringFormedObject;
 	console.log(formedObject);
 	console.log(stringFormedObject);
+
 	this.$form.querySelector('span[name="worki"]').innerText = bags + ' worków';
 	var organizationName = this.$form.querySelector('div[name="organizationname"]').innerText;
 	this.$form.querySelector('span[name="dlakogo"]').innerText = 'Dla '+ organizationName;
@@ -301,7 +302,16 @@ document.addEventListener("DOMContentLoaded", function() {
 	this.$form.querySelector('li[name="uwagi"]').innerText = moreinfo;
 	var el = document.getElementsByName("csrfmiddlewaretoken");
         var csrf_value = el[0].getAttribute("value");
-
+	
+	this.$form.querySelectorAll('input[type="radio"]');
+	$(document).ready(function(){
+		document.querySelectorAll("div[name='radio']").forEach(e => {
+			console.log(e);
+		});
+	});
+	console.log($("div.radio > input").value);
+	
+	 
 
     
     
@@ -327,7 +337,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		    url: "/donate/",
 		    data: {'donation': this.stringFormedObj, csrfmiddlewaretoken: csrf_value},
 		    success: function(result){
-		    	console.log('ok');
+		    	//console.log('ok');
 			window.location.href = "/donated/";
 		    }
 		

@@ -5,12 +5,13 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from django.shortcuts import redirect
 from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 import json
 from datetime import datetime
+
 # Create your views here.
 
 def get_int(l):
