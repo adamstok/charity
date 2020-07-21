@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> 
+    <script src="https://code.jquery.com/jquery-3.1.1.js"></script> 
     <title>Document</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'donation/css/style.css' %}" />
@@ -92,7 +92,7 @@
 
 		{% for kategoria in kategorie %}
 
-            <div class="form-group form-group--checkbox">
+	     <div class="form-group form-group--checkbox">
               <label>
                 <input
                   type="checkbox"
@@ -175,9 +175,12 @@
 	{% for organizacja in organizacje  %}
 
 
-            <div class="form-group form-group--checkbox">
+            <div class="form-group form-group--checkbox radio" name="radio">
               <label>
-		<input type="radio" name="organization" value="{{ organizacja.pk }}" cat="{{ organizacja.category }}" />
+		<input type="radio" name="organization" value="{{ organizacja.pk }}" />
+		{% for i in organizacja.categories.all %}
+		<input type="hidden" value="{{ i.pk }}"></input>
+		{%  endfor %}
 		<span class="checkbox radio"></span>
                 <span class="description">
 		<div class="title" name="organizationname">{{ organizacja.name }}</div>
