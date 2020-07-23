@@ -305,11 +305,16 @@ document.addEventListener("DOMContentLoaded", function() {
 	
 	this.$form.querySelectorAll('input[type="radio"]');
 	$(document).ready(function(){
-		document.querySelectorAll("div[name='radio']").forEach(e => {
+		var radiolabels = document.querySelectorAll("label[name='radio']");
+		console.log('radiolabels: '+radiolabels);
+		radiolabels.forEach(e => {
+			console.log(e.children);
+		});
+		document.querySelectorAll("label[name='radio']").forEach(e => {
 			console.log(e);
 		});
 	});
-	console.log($("div.radio > input").value);
+	//console.log($("div.radio > input").value);
 	
 	 
 

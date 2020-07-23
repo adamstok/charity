@@ -176,11 +176,9 @@
 
 
             <div class="form-group form-group--checkbox radio" name="radio">
-              <label>
-		<input type="radio" name="organization" value="{{ organizacja.pk }}" />
-		{% for i in organizacja.categories.all %}
-		<input type="hidden" value="{{ i.pk }}"></input>
-		{%  endfor %}
+              <label name="radio">
+		<input type="hidden" value="[1,2,3,4]"></input>
+		<input type="radio" name="organization" value="{{ organizacja.pk }}" />		
 		<span class="checkbox radio"></span>
                 <span class="description">
 		<div class="title" name="organizationname">{{ organizacja.name }}</div>
