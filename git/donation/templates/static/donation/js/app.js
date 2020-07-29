@@ -376,6 +376,10 @@ document.addEventListener("DOMContentLoaded", function() {
 		    success: function(result){
 		    	//console.log('ok');
 			window.location.href = "/donated/";
+		    },
+		    error: function(result){
+		    	alert('An error occured!');
+			window.location.href = "/donate/";
 		    }
 		
 	    
