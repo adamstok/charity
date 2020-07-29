@@ -245,7 +245,6 @@ document.addEventListener("DOMContentLoaded", function() {
 	var selectedVal = this.$form.querySelectorAll('input[name="categories"]:checked');
 	var selectedValues = []
 	selectedVal.forEach(e => {
-		console.log(e.value);
 		selectedValues.push(e.value);
 	});
 	//console.log(selectedValues);
@@ -259,7 +258,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		//console.log('array: '+Array.from(values));
 		//console.log(values);
 		//console.log('closest div: '+e.closest('div'));
-		
+		console.log(selectedValues);	
 		for(let x=0; x<selectedValues.length; x++){
 			if(selectedValues[x] in Array.from(values) == false){
 				console.log('not in');
@@ -267,6 +266,8 @@ document.addEventListener("DOMContentLoaded", function() {
 			        var parentdiv = e.closest('div');
 				parentdiv.setAttribute("hidden",true);
 			} else {
+				var parentdiv = e.closest('div');
+				parentdiv.removeAttribute("hidden");
 				console.log('ok');
 			};
 		};
