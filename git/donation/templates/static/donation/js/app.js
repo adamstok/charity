@@ -245,10 +245,34 @@ document.addEventListener("DOMContentLoaded", function() {
 	var selectedVal = this.$form.querySelectorAll('input[name="categories"]:checked');
 	var selectedValues = []
 	selectedVal.forEach(e => {
-	//	console.log(e.value);
+		console.log(e.value);
 		selectedValues.push(e.value);
 	});
 	//console.log(selectedValues);
+	
+	var hiddenlist = this.$form.querySelectorAll('input[name="hiddenlist"]');
+	//console.log('hiddenlist: '+hiddenlist.length);
+	
+	hiddenlist.forEach(e => {
+		var values = e.value;
+		//console.log('values: '+values+' type: '+typeof(values));
+		//console.log('array: '+Array.from(values));
+		//console.log(values);
+		//console.log('closest div: '+e.closest('div'));
+		
+		for(let x=0; x<selectedValues.length; x++){
+			if(selectedValues[x] in Array.from(values) == false){
+				console.log('not in');
+				//e.closest('div').hide();
+			        var parentdiv = e.closest('div');
+				parentdiv.setAttribute("hidden",true);
+			} else {
+				console.log('ok');
+			};
+		};
+	});
+
+
 
 	var showInstitutions = this.$form.querySelectorAll('input[type="radio"]:checked');
 	var institutions = []
@@ -269,11 +293,11 @@ document.addEventListener("DOMContentLoaded", function() {
 		institutions.push(e.value);
 
 	});
-	console.log(selectedValues);
-	console.log(bags);
-	console.log(institutions);
-        console.log(address + city + postcode + phone);
-	console.log(data + time + moreinfo);
+//	console.log(selectedValues);
+//	console.log(bags);
+//	console.log(institutions);
+//        console.log(address + city + postcode + phone);
+//	console.log(data + time + moreinfo);
 	var formedObject = new Object();
 	    formedObject.categories = selectedValues;
 	    formedObject.bags = bags;
@@ -287,8 +311,8 @@ document.addEventListener("DOMContentLoaded", function() {
 	    formedObject.info = moreinfo;
 	var stringFormedObject = JSON.stringify(formedObject);
 	this.stringFormedObj = stringFormedObject;
-	console.log(formedObject);
-	console.log(stringFormedObject);
+//	console.log(formedObject);
+//	console.log(stringFormedObject);
 
 	this.$form.querySelector('span[name="worki"]').innerText = bags + ' worków';
 	var organizationName = this.$form.querySelector('div[name="organizationname"]').innerText;
@@ -302,18 +326,25 @@ document.addEventListener("DOMContentLoaded", function() {
 	this.$form.querySelector('li[name="uwagi"]').innerText = moreinfo;
 	var el = document.getElementsByName("csrfmiddlewaretoken");
         var csrf_value = el[0].getAttribute("value");
-	
+
+
+
+
+
+
 	this.$form.querySelectorAll('input[type="radio"]');
 	$(document).ready(function(){
 		var radiolabels = document.querySelectorAll("label[name='radio']");
-		console.log('radiolabels: '+radiolabels);
+		//console.log('radiolabels: '+radiolabels);
 		radiolabels.forEach(e => {
-			console.log(e.children);
+			//console.log(e.children);
 		});
 		document.querySelectorAll("label[name='radio']").forEach(e => {
-			console.log(e);
+			//console.log(e);
 		});
 	});
+	
+	
 	//console.log($("div.radio > input").value);
 	
 	 

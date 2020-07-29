@@ -176,8 +176,8 @@
 
 
             <div class="form-group form-group--checkbox radio" name="radio">
-              <label name="radio">
-		<input type="hidden" value="[1,2,3,4]"></input>
+	      <input name="hiddenlist" type="hidden" value="{{ organizacja.hiddenlist}}"></input>
+	      <label name="radio">
 		<input type="radio" name="organization" value="{{ organizacja.pk }}" />		
 		<span class="checkbox radio"></span>
                 <span class="description">

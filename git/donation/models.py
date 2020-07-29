@@ -21,6 +21,11 @@ class Institution(models.Model):
     description = models.TextField()
     type_choice = models.TextField(choices=type_choices, default='fundacja')
     categories = models.ManyToManyField(Category)
+    def hiddenlist(self):
+        outp = ''
+        for x in self.categories.all():
+            outp += f'{x.pk}'
+        return outp
     def category(self):
         outp = ''
         for x in self.categories.all():
