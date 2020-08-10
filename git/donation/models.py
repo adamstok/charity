@@ -21,6 +21,11 @@ class Institution(models.Model):
     description = models.TextField()
     type_choice = models.TextField(choices=type_choices, default='fundacja')
     categories = models.ManyToManyField(Category)
+    def hiddenlist(self):
+        outp = ''
+        for x in self.categories.all():
+            outp += f'{x.pk}'
+        return outp
     def category(self):
         outp = ''
         for x in self.categories.all():
@@ -49,3 +54,9 @@ class Donation(models.Model):
     def __str__(self):
         return f'User: {self.user.username} - {self.quantity} {self.category()} to {self.institution}'
 
+class Messages(models.Model):
+    name = models.CharField(max_length=100)
+    surname = models.CharField(max_length=150)
+    message = models.TextField()
+    def __str__(self):
+        return f'Message from: {self.name} {self.surname}. Content: {self.message}'

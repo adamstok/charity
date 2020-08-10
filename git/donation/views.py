@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views import View
-from donation.models import Donation, Institution, Category
+from donation.models import Donation, Institution, Category,Messages
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.shortcuts import redirect
@@ -33,7 +33,12 @@ class LandingPage(View):
             worki += i.quantity
             organizacje.append(i.institution)
         return render(request, 'index.html',{'worki':worki, 'organizacje':len(set(organizacje)),'fundacje': fundacje,'op':op,'zl':zl})
-
+    def post(self,request):
+        name = request.POST.get('name','')
+        surname = request.POST.get('surname','')
+        message = request.POST.get('message','')
+        msg = Messages.objects.create(name=name, surname=surname, message=message)
+        return redirect('/')
 
 
 class AddDonation(LoginRequiredMixin, View):
@@ -67,7 +72,6 @@ class AddDonation(LoginRequiredMixin, View):
         donat.save()
         #return HttpResponse(json.dumps(response), content_itype='application/json')
         return render(request,'form-confirmation.html',{'dane':dane})
-        #return redirect('/register#register_account')
 
 class Login(View):
     def get(self,request):
