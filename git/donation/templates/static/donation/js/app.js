@@ -224,8 +224,8 @@ document.addEventListener("DOMContentLoaded", function() {
       this.$step.innerText = this.currentStep;
 
       // TODO: Validation
-  //   console.log(this.$form.querySelector('input[name="categories"]:checked'));
-//     console.log(this.$form.querySelector('input[name="categories"]:checked').val());
+//  console.log(this.$form.querySelector('input[name="categories"]:checked'));
+//  console.log(this.$form.querySelector('input[name="categories"]:checked').val());
 //	console.log( this.$selectedValues );
 
       this.slides.forEach(slide => {

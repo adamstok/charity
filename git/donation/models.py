@@ -54,3 +54,9 @@ class Donation(models.Model):
     def __str__(self):
         return f'User: {self.user.username} - {self.quantity} {self.category()} to {self.institution}'
 
+class Messages(models.Model):
+    name = models.CharField(max_length=100)
+    surname = models.CharField(max_length=150)
+    message = models.TextField()
+    def __str__(self):
+        return f'Message from: {self.name} {self.surname}. Content: {self.message}'
